@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poilow — моушн-дизайн</title>
+<meta name="description" content="Poilow — моушн-дизайнер. Промо-ролики и UI-анимации для приложений, сервисов, сообществ и онлайн-магазинов.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3f3f1;
+    --paper:#ffffff;
+    --ink:#121214;
+    --muted:#6b6b72;
+    --line:#e2e2de;
+    --blue:#2f5bff;
+    --radius:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter Tight",system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  .serif{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:500;color:var(--blue);letter-spacing:-.01em}
+
+  /* top bar */
+  header{position:sticky;top:0;z-index:10;background:rgba(243,243,241,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-weight:800;font-size:22px;letter-spacing:-.03em}
+  .logo span{color:var(--blue)}
+  nav{display:flex;gap:28px;align-items:center;font-weight:500;font-size:15px}
+  nav a.link{color:var(--muted)}
+  nav a.link:hover{color:var(--ink)}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:#fff;font-weight:600;font-size:15px;padding:12px 20px;border-radius:999px;transition:background .2s}
+  .btn:hover{background:#1f47e6}
+  .btn svg{width:18px;height:18px;flex:none}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost:hover{background:var(--paper)}
+  .btn.big{font-size:17px;padding:16px 26px}
+
+  /* hero */
+  .hero{padding:88px 0 56px}
+  .eyebrow{font-size:14px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:22px}
+  h1{font-size:clamp(46px,8.4vw,104px);line-height:.98;letter-spacing:-.045em;font-weight:800;max-width:14ch}
+  h1 .serif{font-size:1.04em;letter-spacing:-.02em}
+  .lead{margin-top:28px;max-width:560px;font-size:20px;color:#3a3a40}
+  .cta{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap}
+
+  /* video frames */
+  .frame{position:relative;border-radius:var(--radius);overflow:hidden;background:#dcdcd8;aspect-ratio:16/9}
+  .frame video,.frame img.poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:transparent;border:0;cursor:pointer}
+  .play span{width:84px;height:84px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.18);transition:transform .2s}
+  .play:hover span{transform:scale(1.06)}
+  .play svg{width:26px;height:26px;margin-left:4px;fill:var(--ink)}
+  .frame.playing .play,.frame.playing img.poster{display:none}
+
+  .reel{margin-top:8px}
+  .sound{position:absolute;right:18px;bottom:18px;display:flex;align-items:center;gap:8px;background:rgba(18,18,20,.72);color:#fff;border:0;border-radius:999px;padding:10px 16px;font:600 14px "Inter Tight",sans-serif;cursor:pointer}
+  .sound:hover{background:rgba(18,18,20,.88)}
+  .sound svg{width:16px;height:16px;fill:#fff}
+
+  /* section heads */
+  section{padding:96px 0 0}
+  .head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px;border-top:1px solid var(--line);padding-top:28px}
+  h2{font-size:clamp(34px,5vw,56px);line-height:1;letter-spacing:-.035em;font-weight:800}
+  .head p{color:var(--muted);max-width:340px;font-size:16px}
+
+  /* works */
+  .works{display:grid;grid-template-columns:1fr 1fr;gap:40px 28px}
+  .work.wide{grid-column:1/-1}
+  .meta{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:18px}
+  .meta h3{font-size:24px;letter-spacing:-.02em;font-weight:700}
+  .meta .num{color:var(--blue);font-weight:600;font-size:14px;margin-right:10px;letter-spacing:.04em}
+  .meta .dur{color:var(--muted);font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .work p{color:var(--muted);margin-top:6px;max-width:620px;font-size:16px}
+  .tag{display:inline-block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 10px;margin-left:10px;vertical-align:4px}
+
+  /* services */
+  .services{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .svc{background:var(--paper);border-radius:var(--radius);padding:32px 30px 34px}
+  .svc .k{font-size:14px;color:var(--blue);font-weight:600;letter-spacing:.04em}
+  .svc h3{font-size:24px;letter-spacing:-.02em;margin:14px 0 10px;line-height:1.15}
+  .svc p{color:var(--muted);font-size:16px}
+
+  /* process */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+  .step{padding:26px 24px 0 0}
+  .step + .step{padding-left:24px;border-left:1px solid var(--line)}
+  .step b{display:block;font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#c9c9c4}
+  .step h4{font-size:19px;margin:16px 0 6px;letter-spacing:-.01em}
+  .step p{color:var(--muted);font-size:15px}
+
+  /* contact */
+  .contact{margin:110px 0 0;background:var(--paper);border-radius:32px;display:grid;grid-template-columns:1.3fr .7fr;overflow:hidden}
+  .contact .txt{padding:64px 56px}
+  .contact h2{font-size:clamp(38px,5.4vw,68px)}
+  .contact p{margin-top:20px;color:#3a3a40;font-size:19px;max-width:440px}
+  .contact .cta{margin-top:34px}
+  .handle{margin-top:18px;color:var(--muted);font-size:15px}
+  .contact .pic{background:#e3e4e8;position:relative;min-height:380px}
+  .contact .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%}
+
+  footer{padding:48px 0 56px;color:var(--muted);font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media (max-width:860px){
+    nav a.link{display:none}
+    .hero{padding:56px 0 40px}
+    .works{grid-template-columns:1fr;gap:44px}
+    .services{grid-template-columns:1fr;gap:16px}
+    .steps{grid-template-columns:1fr 1fr}
+    .step{padding:24px 16px 24px 0}
+    .step + .step{padding-left:0;border-left:0}
+    .step:nth-child(even){padding-left:16px;border-left:1px solid var(--line)}
+    .step:nth-child(n+3){border-top:1px solid var(--line)}
+    .contact{grid-template-columns:1fr}
+    .contact .txt{padding:44px 28px}
+    .contact .pic{min-height:440px;order:-1}
+    .head{flex-direction:column;align-items:flex-start}
+    section{padding-top:72px}
+    .play span{width:66px;height:66px}
+    .sound{right:10px;bottom:10px;padding:7px 12px;font-size:12px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top">Poilow<span>.</span></a>
+    <nav>
+      <a class="link" href="#works">Работы</a>
+      <a class="link" href="#services">Что делаю</a>
+      <a class="link" href="#process">Как работаем</a>
+      <a class="btn" href="https://t.me/Poilowe" target="_blank" rel="noopener">Написать</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+
+    <div class="hero">
+      <div class="eyebrow">Моушн-дизайнер · Poilow</div>
+      <h1>Моушн, который <span class="serif">продаёт.</span></h1>
+      <p class="lead">Промо-ролики и UI-анимации для приложений, сервисов, закрытых сообществ и онлайн-магазинов. Показываю ваш продукт так, чтобы его хотелось купить.</p>
+      <div class="cta">
+        <a class="btn big" href="https://t.me/Poilowe" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.4 4.3 2.9 11.4c-1.3.5-1.3 1.2-.2 1.6l4.7 1.5 1.8 5.6c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.5-1.4ZM8.9 14.2l9.4-5.9c.5-.3.9-.1.5.2l-7.9 7.2-.3 3.4-1.7-4.9Z"/></svg>
+          Обсудить проект
+        </a>
+        <a class="btn ghost big" href="#works">Смотреть работы</a>
+      </div>
+    </div>
+
+    <div class="frame reel playing" id="reel">
+      <video id="reelVideo" src="v/showreel.mp4" poster="img/showreel.jpg" autoplay muted loop playsinline preload="auto"></video>
+      <button class="sound" id="soundBtn" type="button" aria-label="Включить звук">
+        <svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4Z"/></svg>
+        <span>Со звуком</span>
+      </button>
+    </div>
+
+    <section id="works">
+      <div class="head">
+        <h2>Работы</h2>
+        <p>Промо сообщества, концепты для сервисов и продуктовая UI-анимация.</p>
+      </div>
+
+      <div class="works">
+        <article class="work wide">
+          <div class="frame">
+            <img class="poster" src="img/protocol.jpg" alt="Интерфейс закрытого сообщества Клан · Протокол" loading="lazy">
+            <button class="play" type="button" data-src="v/protocol.mp4" aria-label="Смотреть: Клан · Протокол"><span><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span></button>
+          </div>
+          <div class="meta">
+            <h3><span class="num">01</span>Клан · Протокол</h3>
+            <span class="dur">1:10</span>
+          </div>
+          <p>Промо закрытого Telegram-сообщества: платформа изнутри, эфиры, марафоны и живые отзывы участников. Ролик для привлечения новых людей в сообщество.</p>
+        </article>
+
+        <article class="work">
+          <div class="frame">
+            <img class="poster" src="img/tgstat.jpg" alt="Дашборд аналитики Telegram-канала" loading="lazy">
+            <button class="play" type="button" data-src="v/tgstat.mp4" aria-label="Смотреть: TGStat"><span><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span></button>
+          </div>
+          <div class="meta">
+            <h3><span class="num">02</span>TGStat<span class="tag">Концепт</span></h3>
+            <span class="dur">0:20</span>
+          </div>
+          <p>Рекламная интеграция для сервиса аналитики Telegram: от каталога каналов до метрик, в одном движении.</p>
+        </article>
+
+        <article class="work">
+          <div class="frame">
+            <img class="poster" src="img/orbita.jpg" alt="Светлый дашборд Orbita AI" loading="lazy">
+            <button class="play" type="button" data-src="v/orbita.mp4" aria-label="Смотреть: Orbita AI"><span><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span></button>
+          </div>
+          <div class="meta">
+            <h3><span class="num">03</span>Orbita AI<span class="tag">Концепт</span></h3>
+            <span class="dur">0:20</span>
+          </div>
+          <p>Продуктовая UI-анимация аналитического дашборда: доход, трафик и пользователи оживают по очереди.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="head">
+        <h2>Что делаю</h2>
+        <p>Ролик под задачу: запуск, реклама, страница продукта или канал.</p>
+      </div>
+      <div class="services">
+        <div class="svc">
+          <div class="k">01</div>
+          <h3>Промо продукта</h3>
+          <p>Короткий ролик, который за 15–60 секунд объясняет, что вы продаёте и почему это нужно.</p>
+        </div>
+        <div class="svc">
+          <div class="k">02</div>
+          <h3>UI-анимация</h3>
+          <p>Интерфейс приложения, сайта или сервиса в движении. Для лендинга, стора и рекламы.</p>
+        </div>
+        <div class="svc">
+          <div class="k">03</div>
+          <h3>Ролик для сообщества</h3>
+          <p>Промо закрытого клуба, курса или канала: показать, что внутри, и привести новых участников.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="head">
+        <h2>Как работаем</h2>
+        <p>Понятные шаги, сроки и правки без сюрпризов.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><b>1</b><h4>Бриф</h4><p>Разбираемся в продукте, аудитории и примерах, которые вам нравятся.</p></div>
+        <div class="step"><b>2</b><h4>Сценарий</h4><p>Согласуем структуру и ключевые кадры до начала анимации.</p></div>
+        <div class="step"><b>3</b><h4>Анимация</h4><p>Делаю ролик. Два круга правок включены в стоимость.</p></div>
+        <div class="step"><b>4</b><h4>Форматы</h4><p>Отдаю готовые файлы под нужные площадки: 16:9, 9:16, 1:1.</p></div>
+      </div>
+    </section>
+
+    <div class="contact">
+      <div class="txt">
+        <h2>Есть проект? <span class="serif">Давайте обсудим.</span></h2>
+        <p>Напишите пару слов о продукте и задаче. Отвечу, предложу идею и назову сроки.</p>
+        <div class="cta">
+          <a class="btn big" href="https://t.me/Poilowe" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.4 4.3 2.9 11.4c-1.3.5-1.3 1.2-.2 1.6l4.7 1.5 1.8 5.6c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.5-1.4ZM8.9 14.2l9.4-5.9c.5-.3.9-.1.5.2l-7.9 7.2-.3 3.4-1.7-4.9Z"/></svg>
+            Написать в Telegram
+          </a>
+        </div>
+        <div class="handle">@Poilowe</div>
+      </div>
+      <div class="pic"><img src="img/char.jpg" alt="Персонаж Poilow машет рукой"></div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Poilow</span>
+    <span>Telegram: @Poilowe</span>
+  </div>
+</footer>
+
+<script>
+  // play a work inline; pause anything else that is playing
+  function pauseOthers(except){
+    document.querySelectorAll('video').forEach(function(v){ if(v!==except && !v.paused && v.id!=='reelVideo') v.pause(); });
+    var reel=document.getElementById('reelVideo');
+    if(except && except!==reel && !reel.muted){ reel.muted=true; setSoundLabel(); }
+  }
+  document.querySelectorAll('.play').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var frame=btn.closest('.frame');
+      var v=document.createElement('video');
+      v.src=btn.dataset.src; v.controls=true; v.playsInline=true; v.preload='auto';
+      frame.appendChild(v); frame.classList.add('playing');
+      pauseOthers(v);
+      v.addEventListener('play',function(){ pauseOthers(v); });
+      var p=v.play(); if(p&&p.catch) p.catch(function(){});
+    });
+  });
+
+  var reel=document.getElementById('reelVideo'), soundBtn=document.getElementById('soundBtn');
+  function setSoundLabel(){
+    soundBtn.querySelector('span').textContent = reel.muted ? 'Со звуком' : 'Без звука';
+    soundBtn.setAttribute('aria-label', reel.muted ? 'Включить звук' : 'Выключить звук');
+  }
+  soundBtn.addEventListener('click',function(){
+    reel.muted=!reel.muted;
+    if(!reel.muted){ reel.currentTime=0; pauseOthers(reel); }
+    var p=reel.play(); if(p&&p.catch) p.catch(function(){});
+    setSoundLabel();
+  });
+</script>
+</body>
+</html>
